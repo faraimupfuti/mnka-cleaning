@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load icons %}
+{% block content %}
+<section class="section">
+  <div class="container" style="max-width:720px;">
+    <div class="icon-tile on-blue">{% icon service.category.icon|default:"sparkles" size=26 %}</div>
+    <h1>{{ service.name }}</h1>
+    <p class="price" style="font-size:1.2rem;">{{ service.price_display }} &middot; ~{{ service.estimated_duration_minutes }} min</p>
+    <p>{{ service.description }}</p>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <a href="{% url 'bookings:new' %}?service={{ service.slug }}" class="btn btn-primary">Book this service</a>
+      <a href="{% url 'services:list' %}" class="btn btn-outline">Back to all services</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

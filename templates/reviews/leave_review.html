@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-card">
+  <h1>Rate your clean</h1>
+  <p class="subheading">{{ booking.service.name }} on {{ booking.scheduled_for }}</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      <p>
+        <label>{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}
+      </p>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary btn-block">Submit review</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+  <meta name="description" content="Book trusted, background-checked cleaners in Zimbabwe, or register as a cleaner and start earning with {{ SITE_NAME }}.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="icon" href="{% static 'img/logo.png' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="{% url 'home' %}" class="brand">
+        <img src="{% static 'img/logo.png' %}" alt="{{ SITE_NAME }}">
+      </a>
+      <nav class="main-nav">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'services:list' %}">Services</a>
+        {% if user.is_authenticated %}
+          {% if user.is_cleaner %}
+            <a href="{% url 'cleaners:dashboard' %}">My jobs</a>
+          {% else %}
+            <a href="{% url 'bookings:my_bookings' %}">My bookings</a>
+          {% endif %}
+        {% else %}
+          <a href="{% url 'accounts:cleaner_signup' %}">Become a cleaner</a>
+        {% endif %}
+      </nav>
+      <div class="nav-actions">
+        {% if user.is_authenticated %}
+          <span class="helptext">Hi, {{ user.first_name|default:user.username }}</span>
+          <form action="{% url 'accounts:logout' %}" method="post" style="margin:0;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline">Log out</button>
+          </form>
+        {% else %}
+          <a href="{% url 'accounts:login' %}" class="btn btn-outline">Log in</a>
+          <a href="{% url 'accounts:signup_landing' %}" class="btn btn-primary">Get started</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {% if messages %}
+      <div class="container" style="padding-top:20px;">
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-tagline">{{ SITE_TAGLINE }}</div>
+          <p style="color:#b9c6e8; margin-top:10px; max-width:38ch;">Trusted, background-checked cleaners for homes and businesses across Zimbabwe.</p>
+        </div>
+        <div>
+          <p style="color:#b9c6e8; margin-bottom:6px;">Call or WhatsApp</p>
+          <a href="tel:+263779215594" style="font-family:var(--font-display); font-size:1.15rem;">0779 215 594</a>
+        </div>
+        <div>
+          <p style="color:#b9c6e8; margin-bottom:6px;">Links</p>
+          <p style="margin-bottom:4px;"><a href="{% url 'services:list' %}">Browse services</a></p>
+          <p style="margin-bottom:4px;"><a href="{% url 'accounts:cleaner_signup' %}">Become a cleaner</a></p>
+        </div>
+      </div>
+      <hr class="footer-divider">
+      <div class="footer-bottom">
+        <span>&copy; {% now "Y" %} {{ SITE_NAME }}. All rights reserved.</span>
+        <span>Harare, Zimbabwe</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

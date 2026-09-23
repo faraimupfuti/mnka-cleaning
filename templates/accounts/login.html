@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-card">
+  <h1>Log in</h1>
+  <p class="subheading">Welcome back to Mnka Cleaning Services.</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      <p>
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}
+      </p>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary btn-block">Log in</button>
+  </form>
+  <p style="text-align:center;margin-top:16px;">New here? <a href="{% url 'accounts:signup_landing' %}">Create an account</a></p>
+</div>
+{% endblock %}

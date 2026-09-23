@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load icons %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Our services</h2>
+      <p>Choose a service to book - pricing and duration shown up front.</p>
+    </div>
+    {% for category in categories %}
+      <h3 style="margin-top:36px;">{{ category.name }}</h3>
+      <div class="grid grid-3">
+        {% for service in category.services.all %}
+          {% if service.is_active %}
+          <div class="service-card">
+            <div class="icon-tile {% cycle 'on-blue' 'on-green' 'on-blue' %}">
+              {% icon category.icon|default:"sparkles" size=26 %}
+            </div>
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.description|truncatewords:18 }}</p>
+            <p class="price">{{ service.price_display }} &middot; ~{{ service.estimated_duration_minutes }} min</p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a href="{% url 'bookings:new' %}?service={{ service.slug }}" class="btn btn-primary">Book now</a>
+              <a href="{{ service.get_absolute_url }}" class="btn btn-outline">Details</a>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% empty %}
+      <p>No services have been added yet. Add some in the Django admin under Services.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-heading" style="text-align:left;margin-bottom:24px;">
+      <h2>My bookings</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Scheduled for</th>
+            <th>Address</th>
+            <th>Cleaner</th>
+            <th>Status</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+          <tr>
+            <td>{{ booking.service.name }}</td>
+            <td>{{ booking.scheduled_for }}</td>
+            <td>{{ booking.address_line }}, {{ booking.city }}</td>
+            <td>{{ booking.cleaner.user.get_full_name|default:"Not yet assigned" }}</td>
+            <td><span class="badge badge-{{ booking.status }}">{{ booking.get_status_display }}</span></td>
+            <td>${{ booking.price }}</td>
+            <td>
+              {% if not booking.is_paid %}
+                <a href="{% url 'payments:pay' booking.pk %}" class="btn btn-primary">Pay now</a>
+              {% elif booking.status == "completed" %}
+                {% if booking.review %}
+                  Reviewed
+                {% else %}
+                  <a href="{% url 'reviews:new' booking.pk %}" class="btn btn-outline">Leave review</a>
+                {% endif %}
+              {% else %}
+                <span class="helptext">Paid</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="7">No bookings yet. <a href="{% url 'bookings:new' %}">Book your first clean</a>.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:24px;">
+      <a href="{% url 'bookings:new' %}" class="btn btn-primary">New booking</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

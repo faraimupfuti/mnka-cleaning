@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-card">
+  <h1>Request a clean</h1>
+  <p class="subheading">Tell us what you need and when — we'll match you with a verified cleaner.</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      <p>
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}
+        {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
+      </p>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary btn-block">Request booking</button>
+  </form>
+</div>
+{% endblock %}

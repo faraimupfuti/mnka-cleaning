@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load static icons %}
+{% block content %}
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-copy">
+      <span class="hero-eyebrow">CLEAN SPACES. HAPPY PLACES.</span>
+      <h1>We don't just clean, we care.</h1>
+      <p class="lede">Book a trusted, background-checked cleaner in minutes, or register as a cleaner and start taking jobs in your area.</p>
+      <div class="hero-actions">
+        <a href="{% url 'services:list' %}" class="btn btn-primary">Book a clean</a>
+        <a href="{% url 'accounts:cleaner_signup' %}" class="btn btn-outline-invert">Become a cleaner</a>
+      </div>
+      <ul class="hero-claims">
+        <li>{% icon 'check' size=20 %} Trusted professionals</li>
+        <li>{% icon 'check' size=20 %} Quality you can see</li>
+        <li>{% icon 'check' size=20 %} Service you can rely on</li>
+      </ul>
+    </div>
+    <div class="hero-art">
+      {% include "partials/hero_illustration.html" %}
+      <div class="hero-badge">Let us take<br>clean off your<br>to-do list</div>
+    </div>
+  </div>
+  <div class="hero-edge"></div>
+</section>
+
+<section class="section section-alt section-tight">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Our services</h2>
+      <p>From a one-off deep clean to a standing weekly visit, pick what your space needs.</p>
+    </div>
+    <div class="grid grid-3">
+      {% for category in categories %}
+        {% for service in category.services.all|slice:":1" %}
+          <div class="service-card">
+            <div class="icon-tile {% cycle 'on-blue' 'on-green' 'on-blue' %}">
+              {% icon category.icon|default:"sparkles" size=26 %}
+            </div>
+            <h3>{{ category.name }}</h3>
+            <p>{{ service.description|default:"Thorough, reliable cleaning tailored to your space."|truncatewords:16 }}</p>
+            <p class="price">From {{ service.price_display }}</p>
+            <a href="{{ service.get_absolute_url }}" class="btn btn-outline">View details</a>
+          </div>
+        {% endfor %}
+      {% empty %}
+        <p>Services are being set up - add your first one in the Django admin.</p>
+      {% endfor %}
+    </div>
+    <div style="margin-top:32px;">
+      <a href="{% url 'services:list' %}" class="btn btn-secondary">See all services</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt section-tight">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Booking takes three steps</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-number">01</span>
+        <h3>Choose a service</h3>
+        <p>Pick from residential, office, deep clean, and more - pricing is shown up front.</p>
+      </div>
+      <div class="step">
+        <span class="step-number">02</span>
+        <h3>Pick a time</h3>
+        <p>Tell us your address and when suits you. We match you with a verified cleaner nearby.</p>
+      </div>
+      <div class="step">
+        <span class="step-number">03</span>
+        <h3>Relax, we handle it</h3>
+        <p>Pay securely with EcoCash or card, then rate your clean once it's done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why-band">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Why choose Mnka?</h2>
+    </div>
+    <ul class="why-list">
+      <li>
+        {% icon 'shield' size=28 %}
+        <div>
+          <h4>Trusted &amp; background-checked</h4>
+          <p>Every cleaner is vetted before they can accept a booking.</p>
+        </div>
+      </li>
+      <li>
+        {% icon 'leaf' size=28 %}
+        <div>
+          <h4>Safe &amp; eco-friendly</h4>
+          <p>We use safe, effective cleaning products in every home.</p>
+        </div>
+      </li>
+      <li>
+        {% icon 'clock' size=28 %}
+        <div>
+          <h4>Punctual &amp; reliable</h4>
+          <p>On time, every time - your schedule matters to us.</p>
+        </div>
+      </li>
+      <li>
+        {% icon 'thumb' size=28 %}
+        <div>
+          <h4>100% satisfaction guaranteed</h4>
+          <p>We don't leave until you're happy with the result.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cleaner-cta">
+      <div>
+        <h2>Earn on your own schedule</h2>
+        <p>Register as a cleaner, get verified, and start receiving booking requests in your area - flexible hours, fair pay, local jobs.</p>
+      </div>
+      <a href="{% url 'accounts:cleaner_signup' %}" class="btn btn-secondary">Sign up as a cleaner</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

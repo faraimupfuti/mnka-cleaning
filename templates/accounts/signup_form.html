@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-card">
+  <h1>{{ heading }}</h1>
+  <p class="subheading">{{ subheading }}</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      <p>
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}
+        {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
+      </p>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary btn-block">Create account</button>
+  </form>
+  <p style="text-align:center;margin-top:16px;">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a></p>
+</div>
+{% endblock %}

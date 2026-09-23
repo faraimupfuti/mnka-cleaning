@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Join Mnka Cleaning Services</h2>
+      <p>Tell us which best describes you.</p>
+    </div>
+    <div class="grid grid-2" style="max-width:760px;margin:0 auto;">
+      <div class="card" style="text-align:center;">
+        <div class="icon-badge" style="margin:0 auto 14px;">&#127968;</div>
+        <h3>I need a clean</h3>
+        <p>Book trusted cleaners for your home or office.</p>
+        <a href="{% url 'accounts:customer_signup' %}" class="btn btn-primary btn-block">Sign up as a customer</a>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div class="icon-badge" style="margin:0 auto 14px;">&#129529;</div>
+        <h3>I'm a cleaner</h3>
+        <p>Register to receive booking requests in your area.</p>
+        <a href="{% url 'accounts:cleaner_signup' %}" class="btn btn-secondary btn-block">Sign up as a cleaner</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px;">Already have an account? <a href="{% url 'accounts:login' %}">Log in</a></p>
+  </div>
+</section>
+{% endblock %}

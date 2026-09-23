@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-card">
+  <h1>Approve the payment on your phone</h1>
+  <p class="subheading">{{ booking.service.name }} &middot; ${{ payment.amount }}</p>
+  <p>{{ instructions|default:"Check your phone for a USSD prompt from EcoCash and enter your PIN to approve the payment." }}</p>
+  <a href="{% url 'payments:status' payment.pk %}" class="btn btn-primary btn-block">I've approved it - check status</a>
+  <a href="{% url 'bookings:my_bookings' %}" class="btn btn-outline btn-block" style="margin-top:10px;">Back to my bookings</a>
+</div>
+{% endblock %}

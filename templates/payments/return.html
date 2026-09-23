@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-card" style="text-align:center;">
+  {% if payment.is_paid %}
+    <h1>Payment received</h1>
+    <p class="subheading">Thanks! Your booking for {{ payment.booking.service.name }} is confirmed.</p>
+  {% else %}
+    <h1>Confirming your payment</h1>
+    <p class="subheading">Paynow hasn't confirmed this payment yet. If you completed checkout, this usually clears within a minute.</p>
+  {% endif %}
+  <a href="{% url 'bookings:my_bookings' %}" class="btn btn-primary btn-block">Go to my bookings</a>
+</div>
+{% endblock %}

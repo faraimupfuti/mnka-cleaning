@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-heading" style="text-align:left;margin-bottom:8px;">
+      <h2>My jobs</h2>
+    </div>
+    <p>
+      Status: <span class="badge badge-{{ profile.verification_status }}">{{ profile.get_verification_status_display }}</span>
+      &nbsp;&middot;&nbsp; Rating: {{ profile.average_rating }}/5 &nbsp;&middot;&nbsp; Completed jobs: {{ profile.completed_jobs }}
+    </p>
+
+    <h3 style="margin-top:32px;">Upcoming</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Service</th><th>When</th><th>Address</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+          {% for booking in upcoming %}
+          <tr>
+            <td>{{ booking.service.name }}</td>
+            <td>{{ booking.scheduled_for }}</td>
+            <td>{{ booking.address_line }}, {{ booking.city }}</td>
+            <td><span class="badge badge-{{ booking.status }}">{{ booking.get_status_display }}</span></td>
+            <td>
+              {% if booking.status == "confirmed" %}
+                <a href="{% url 'bookings:update_status' booking.pk 'in_progress' %}" class="btn btn-outline">Start job</a>
+              {% elif booking.status == "in_progress" %}
+                <a href="{% url 'bookings:update_status' booking.pk 'completed' %}" class="btn btn-primary">Mark complete</a>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="5">No upcoming jobs right now.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:32px;">Recent history</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Service</th><th>When</th><th>Price</th></tr></thead>
+        <tbody>
+          {% for booking in history %}
+          <tr><td>{{ booking.service.name }}</td><td>{{ booking.scheduled_for }}</td><td>${{ booking.price }}</td></tr>
+          {% empty %}
+          <tr><td colspan="3">No completed jobs yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

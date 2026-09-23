@@ -1,0 +1,41 @@
+{% load static %}
+<svg viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a house being cleaned, with sparkle accents">
+  <!-- soft glow backdrop -->
+  <ellipse cx="240" cy="230" rx="210" ry="190" fill="rgba(255,255,255,0.06)" />
+
+  <!-- green ground swoosh, echoing the logo's underline -->
+  <path d="M40 330 Q240 380 440 300" stroke="#93c31e" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.85" />
+
+  <!-- house -->
+  <g>
+    <path d="M120 210 L240 120 L360 210" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    <rect x="150" y="205" width="180" height="120" rx="10" fill="#ffffff" fill-opacity="0.98" />
+    <rect x="270" y="150" width="34" height="34" rx="4" fill="none" stroke="#002b88" stroke-width="7" />
+    <path d="M287 150v34M270 167h34" stroke="#002b88" stroke-width="6" />
+    <rect x="180" y="255" width="56" height="70" rx="6" fill="#eaf0fb" />
+    <rect x="252" y="235" width="52" height="52" rx="6" fill="none" stroke="#93c31e" stroke-width="7" />
+    <path d="M278 235v52M252 261h52" stroke="#93c31e" stroke-width="5" />
+  </g>
+
+  <!-- spray bottle -->
+  <g transform="translate(330,250) rotate(8)">
+    <rect x="0" y="26" width="46" height="70" rx="10" fill="#93c31e" />
+    <rect x="12" y="6" width="14" height="24" rx="4" fill="#eaf0fb" />
+    <rect x="8" y="0" width="30" height="10" rx="3" fill="#002b88" />
+    <path d="M38 8 L60 -6" stroke="#002b88" stroke-width="6" stroke-linecap="round" />
+  </g>
+
+  <!-- sparkles -->
+  <g fill="#93c31e">
+    <path class="sparkle s1" d="M96 130 l6 16 16 6 -16 6 -6 16 -6-16 -16-6 16-6z" />
+  </g>
+  <g fill="#ffffff">
+    <path class="sparkle s2" d="M375 120 l5 13 13 5 -13 5 -5 13 -5-13 -13-5 13-5z" />
+  </g>
+  <g fill="#93c31e">
+    <path class="sparkle s3" d="M410 220 l4 11 11 4 -11 4 -4 11 -4-11 -11-4 11-4z" />
+  </g>
+  <g fill="#ffffff">
+    <path class="sparkle s4" d="M70 260 l4 11 11 4 -11 4 -4 11 -4-11 -11-4 11-4z" />
+  </g>
+</svg>

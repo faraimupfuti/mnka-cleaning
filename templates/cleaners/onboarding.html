@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-card" style="max-width:620px;">
+  <h1>Complete your cleaner profile</h1>
+  <p class="subheading">This info helps us verify you and match you to the right jobs.</p>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      <p>
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {{ field.errors }}
+        {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
+      </p>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary btn-block">Save profile</button>
+  </form>
+</div>
+{% endblock %}
